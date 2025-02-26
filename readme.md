@@ -24,3 +24,6 @@ Real-Time Date and Time Display :
 Editable Tasks :
     Users can edit existing tasks to update their assignee or reminder.
 </pre>
+
+Install Instructions:
+Prerequisites: Node & Mongo DB
