@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+.queues {
+  display: flex;
+  gap: 20px;
+}
+
+.queue {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 30%;
+}
+
+.queue h2 {
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+footer {
+  margin-top: 30px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ccc;
+}
+
+footer p {
+  margin: 0;
+}

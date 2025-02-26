@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Task</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Edit Task</h1>
+  <form action="/edit-task/<%= task._id %>" method="POST">
+    <label for="assignee">Assignee:</label>
+    <input type="text" id="assignee" name="assignee" value="<%= task.assignee %>">
+    <br>
+    <label for="reminder">Reminder (optional):</label>
+    <input type="datetime-local" id="reminder" name="reminder" value="<%= task.reminder ? new Date(task.reminder).toISOString().slice(0, 16) : '' %>">
+    <br>
+    <button type="submit">Save Changes</button>
+  </form>
+  <a href="/">Back to Dashboard</a>
+</body>
+</html>

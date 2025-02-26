@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Task Dashboard</h1>
+  <div class="queues">
+    <% ['To Do', 'In Progress', 'Completed'].forEach(queue => { %>
+      <div class="queue">
+        <h2><%= queue %></h2>
+        <ul>
+          <% tasks.filter(task => task.status === queue).forEach(task => { %>
+            <li>
+              <strong><%= task.title %></strong>: <%= task.description %>
+              <br>
+              <em>Assigned to: <%= task.assignee || 'Unassigned' %></em>
+              <% if (task.reminder) { %>
+                <br><em>Reminder: <%= new Date(task.reminder).toLocaleString() %></em>
+              <% } %>
+              <% if (queue !== 'Completed') { %>
+                <form action="/update-task/<%= task._id %>" method="POST" style="display:inline;">
+                  <input type="hidden" name="status" value="<%= queue === 'To Do' ? 'In Progress' : 'Completed' %>">
+                  <button type="submit">Move to <%= queue === 'To Do' ? 'In Progress' : 'Completed' %></button>
+                </form>
+                <form action="/edit-task/<%= task._id %>" method="GET" style="display:inline;">
+                  <button type="submit">Edit</button>
+                </form>
+              <% } %>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    <% }); %>
+  </div>
+  <a href="/add-task">Add New Task</a>
+  <footer style="margin-top: 20px; text-align: center; font-size: 14px; color: gray;">
+    <p>
+      Today's Date and Time (Local): <span id="local-time"></span><br>
+      Current Time in Singapore: <span id="singapore-time"></span><br>
+      Current Time in Zurich: <span id="zurich-time"></span>
+    </p>
+  </footer>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+
+      // Local Time
+      const localTime = now.toLocaleString();
+      document.getElementById('local-time').textContent = localTime;
+
+      // Singapore Time
+      const singaporeTime = now.toLocaleString('en-US', { timeZone: 'Asia/Singapore', hour12: false });
+      document.getElementById('singapore-time').textContent = singaporeTime;
+
+      // Zurich Time
+      const zurichTime = now.toLocaleString('en-US', { timeZone: 'Europe/Zurich', hour12: false });
+      document.getElementById('zurich-time').textContent = zurichTime;
+    }
+
+    // Update time every second
+    setInterval(updateTime, 1000);
+    updateTime(); // Initial call to display time immediately
+  </script>
+</body>
+</html>
